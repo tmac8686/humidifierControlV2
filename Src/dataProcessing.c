@@ -21,6 +21,8 @@ uint8_t humiMode;
 uint16_t alarmCode;
 uint16_t humiCurrent;
 uint16_t humiOpening;
+uint16_t humiOpeningV;
+uint16_t humiOpeningI;
 uint16_t humiOpeningFromPLC;
 uint16_t humiCurrentUpperLimit;
 uint16_t humiVoltage = 380;
@@ -33,8 +35,8 @@ uint16_t cleanDrainWaterTime;		//洗桶时间
 uint16_t ctrlToDisplayTemp[255];
 uint16_t ctrlToPLCTemp[255];
 
-volatile uint16_t ADC_ConvertedValue[3];
-uint32_t ADC_Average[3];
+volatile uint16_t ADC_ConvertedValue[4];
+uint32_t ADC_Average[4];
 
 static void adcProcesdsing() {
 
@@ -42,27 +44,37 @@ static void adcProcesdsing() {
 
 	for (uint8_t i = 0; i < 100; i++)
 	{
-		for (uint8_t j = 0; j < 3; j++) {
+		for (uint8_t j = 0; j < 4; j++) {
 			ADC_Average[j] += ADC_ConvertedValue[j];
 		}
 	}
 
-	humiOpening = ADC_Average[0] *10/ 4096;
+	humiOpeningV = ADC_Average[0] *10/ 4096;
 
 	humiCurrent = ADC_Average[1] *6/4096 - 1;//选用39R电阻。0-60A-->0-60ma-->0-0.06*39*1.414V-->0-3.3V-->0-4095
 										//0-600 对应 0-4095.
-	powerProportion = ADC_Average[2] * (1001 - 250) / 4096 / 100 + 250;
 
-	if (humiCurrent >= 32767)
+	if (ADC_Average[2]<84000)
 	{
-		humiCurrent = 0;
+		ADC_Average[2] = 84000;
+	}
+	humiOpeningI = (ADC_Average[2] / 100 - 840) * 999 / 3255;
+
+	powerProportion = ADC_Average[3] * (1001 - 250) / 4096 / 100 + 250;
+
+
+	if (humiOpeningV > humiOpeningI)
+	{
+		humiOpening = humiOpeningV;
+	}
+	else {
+		humiOpening = humiOpeningI;
 	}
 
-	for (uint8_t i = 0; i < 3; i++)
+	for (uint8_t i = 0; i < 4; i++)
 	{
 		ADC_Average[i] = 0;
 	}
-	//printf("humiOpening = %d\n", humiOpening);
 }
 
 /*************************************由功率计算出额定电流************************************/

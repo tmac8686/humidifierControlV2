@@ -56,6 +56,7 @@
 #include "digitalDisplay.h"
 #include "dataProcessing.h"
 #include "humiCtrl.h"
+#include "tim.h"
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
@@ -75,6 +76,21 @@ void StartDisplayTask(void const * argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* USER CODE BEGIN FunctionPrototypes */
+int pwm_value = 0;
+int flag = 0;
+uint8_t addFlag;
+
+void user_pwm_setvalue(uint16_t value)
+{
+	TIM_OC_InitTypeDef sConfigOC;
+
+	sConfigOC.OCMode = TIM_OCMODE_PWM1;
+	sConfigOC.Pulse = value;
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+	HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+}
 
 /* USER CODE END FunctionPrototypes */
 
@@ -132,7 +148,26 @@ void StartDataProcessingTask(void const * argument)
 	dataProcessing();
 	humiCtrl();
 	HAL_IWDG_Refresh(&hiwdg);
-	osDelay(100);
+	osDelay(2);
+	if (pwm_value >1000) 
+	{
+		addFlag = 0;
+	}
+	if (pwm_value<0)
+	{
+		addFlag = 1;
+	}
+
+	if (addFlag)
+	{
+		pwm_value++;
+	}
+	else {
+		pwm_value--;
+	}
+
+	//TIM2->CCR1 = pwm_value;
+	user_pwm_setvalue(pwm_value);
 
   }
   /* USER CODE END StartDataProcessingTask */
@@ -147,6 +182,7 @@ void StartcheckKeyTask(void const * argument)
   {
     osDelay(1);
 	keyScan();
+
   }
   /* USER CODE END StartcheckKeyTask */
 }
