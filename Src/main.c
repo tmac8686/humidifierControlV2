@@ -60,6 +60,7 @@
 /* USER CODE BEGIN Includes */
 #include "dataProcessing.h"
 #include "humiCtrl.h"
+#include "ledCtrl.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -249,7 +250,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   }
   else if (htim->Instance == TIM3)//tim3 1s中断
   {
-
 
 	  if (1 == startLowerLimitCountFlag)	//低电流计时
 	  {

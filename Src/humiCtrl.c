@@ -2,6 +2,7 @@
 #include "dataProcessing.h"
 #include "cmsis_os.h"
 #include "main.h"
+#include "ledCtrl.h"
 
 #define contactorOpen		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_SET)		//接触器开关
 #define contactorClose		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_RESET)
@@ -49,7 +50,6 @@ uint16_t drainWaterCount;			//排水计数
 uint8_t overCurrentFlag;			//超电流标志
 uint16_t overCurrentCount;			//超电流计数
 
-uint8_t blinkFlag;					//led闪烁标志
 uint8_t alarmFlag;					//报警标志
 
 uint8_t waterValveFailureFlag;		//水阀故障标记	无故障:1;有故障:1
@@ -100,9 +100,6 @@ uint8_t ledCurrentLowLimitFlag;			//低电流
 
 static void osDelaySecond(int s);
 static void drainWater(int s);
-static void ledSwitch(uint8_t color, uint8_t statu);
-static void ledBlink(uint8_t color);
-static void greenLedDark();
 static void humiSuspend();
 static void inletValveOpenWithLimit();
 static void manualDrainWaterScan(int s);
@@ -514,7 +511,6 @@ static void extraDrainWater() {
 			contactorOpen;
 		}
 	}
-
 }
 
 //报警灯集中处理
@@ -524,29 +520,37 @@ static void alarmLampHandle() {
 	{
 		switch (ledBlinkFlagTemp8)
 		{
-		case 0: ledSwitch(1, 1);
-			ledSwitch(0, 0);
+		case 0: 
+			ledSwitch(1, 1);
+			//ledSwitch(0, 0);
 			break;
-		case 1:	ledSwitch(1, 0);
-			ledSwitch(0, 0);
+		case 1:	
+			ledSwitch(1, 0);
+		//	ledSwitch(0, 0);
 			break;
-		case 2: ledSwitch(1, 1);
-			ledSwitch(0, 0);
+		case 2: 
+			ledSwitch(1, 1);
+		//	ledSwitch(0, 0);
 			break;
-		case 3:	ledSwitch(1, 0);
-			ledSwitch(0, 0);
+		case 3:	
+			ledSwitch(1, 0);
+		//	ledSwitch(0, 0);
 			break;
-		case 4: ledSwitch(0, 0);
+		case 4: 
+		//	ledSwitch(1, 0);
 			ledSwitch(0, 1);
 			break;
-		case 5:	ledSwitch(0, 0);
-			ledSwitch(0, 0);
+		case 5:	
+			ledSwitch(1, 0);
+			//ledSwitch(0, 0);
 			break;
-		case 6:	ledSwitch(0, 0);
+		case 6:	
+		//	ledSwitch(1, 0);
 			ledSwitch(0, 1);
 			break;
-		case 7:	ledSwitch(0, 0);
-			ledSwitch(0, 0);
+		case 7:	
+			ledSwitch(1, 0);
+		//	ledSwitch(0, 0);
 			break;
 		default:
 			break;
@@ -594,8 +598,7 @@ static void alarmLampHandle() {
 
 	else if (1 == ledStopWorkFlag)									//停止工作
 	{
-		ledSwitch(0, 0);
-		ledSwitch(1, 0);
+		enableGreenLedBreathe(1);
 	}
 
 	else if ((1 == ledNormalWorkFlag)&&(1 == ledReplaceBucketFlag))	//需要换桶
@@ -727,73 +730,6 @@ static void drainWater(int s) {
 	osDelaySecond(s);
 	drainValveClose;
 	contactorOpen;
-}
-
-/**
-* @brief 指示灯开关
-* @param color：0：绿色。1：红色
-* @param statu: 0:关闭。 1：打开
-*/
-static void ledSwitch(uint8_t color, uint8_t statu) {
-	//关闭绿灯时，要关闭pwm输出。
-	if (0 == color)
-	{
-		if (1 == statu)
-		{
-			//HAL_GPIO_WritePin(green_led_GPIO_Port, green_led_Pin, GPIO_PIN_SET);
-		}
-		else
-		{
-		//	HAL_GPIO_WritePin(green_led_GPIO_Port, green_led_Pin, GPIO_PIN_RESET);
-		}
-	}
-	else if (1 == color)
-	{
-		if (1 == statu)
-		{
-		//	HAL_GPIO_WritePin(red_led_GPIO_Port, red_led_Pin, GPIO_PIN_SET);
-		}
-		else
-		{
-		//	HAL_GPIO_WritePin(red_led_GPIO_Port, red_led_Pin, GPIO_PIN_RESET);
-		}
-	}
-}
-
-/**
-* @brief 指示灯闪烁
-* @param color：0：绿色。1：红色
-*/
-static void ledBlink(uint8_t color) {
-	//关闭绿灯时，要关闭pwm输出。
-	if (0 == color)
-	{
-		if (1 == blinkFlag)
-		{
-			//HAL_GPIO_WritePin(green_led_GPIO_Port, green_led_Pin, GPIO_PIN_SET);
-		}
-		else
-		{
-			//HAL_GPIO_WritePin(green_led_GPIO_Port, green_led_Pin, GPIO_PIN_RESET);
-		}
-	}
-	else if (1 == color)
-	{
-		if (1 == blinkFlag)
-		{
-			//HAL_GPIO_WritePin(red_led_GPIO_Port, red_led_Pin, GPIO_PIN_SET);
-		}
-		else
-		{
-			//HAL_GPIO_WritePin(red_led_GPIO_Port, red_led_Pin, GPIO_PIN_RESET);
-		}
-	}
-}
-
-
-//绿灯暗，专用于待机
-static void greenLedDark() {
-
 }
 
 

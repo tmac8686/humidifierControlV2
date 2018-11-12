@@ -399,6 +399,9 @@
     <ClInclude Include="..\Inc\dma.h">
       <Filter>Header files</Filter>
     </ClInclude>
+    <ClCompile Include="..\Src\ledCtrl.c">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Inc\digitalDisplay.h">
@@ -408,6 +411,9 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="..\Inc\humiCtrl.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\ledCtrl.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

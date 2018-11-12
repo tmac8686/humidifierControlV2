@@ -26,7 +26,6 @@ extern uint8_t drainWaterFlag;
 extern uint16_t drainWaterCount;
 extern uint8_t overCurrentFlag;
 extern uint16_t overCurrentCount;
-extern uint8_t blinkFlag;
 extern uint8_t startLowerLimitCountFlag;
 extern uint16_t lowerLimitCount;
 void humiCtrlInit();

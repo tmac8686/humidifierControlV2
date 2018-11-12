@@ -85,6 +85,7 @@
     <ClCompile Include="..\Src\adc.c" />
     <ClCompile Include="..\Src\humiCtrl.c" />
     <ClCompile Include="..\Src\iwdg.c" />
+    <ClCompile Include="..\Src\ledCtrl.c" />
     <ClCompile Include="..\Src\tim.c" />
     <ClCompile Include="..\Src\usart.c" />
     <ClCompile Include="..\Src\stm32f1xx_it.c" />
@@ -114,6 +115,7 @@
     <ClInclude Include="..\Inc\adc.h" />
     <ClInclude Include="..\Inc\humiCtrl.h" />
     <ClInclude Include="..\Inc\iwdg.h" />
+    <ClInclude Include="..\Inc\ledCtrl.h" />
     <ClInclude Include="..\Inc\tim.h" />
     <ClInclude Include="..\Inc\usart.h" />
     <ClInclude Include="..\Inc\stm32f1xx_it.h" />
