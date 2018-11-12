@@ -575,9 +575,6 @@ static void alarmLampHandle() {
 
 	else if (1 == ledDrainWaterHandFlag)							//手动排水
 	{
-
-		printf("手动排水 \r\n");
-
 		switch (ledBlinkFlagTemp4)
 		{
 		case 0:
@@ -610,30 +607,28 @@ static void alarmLampHandle() {
 	else if(1 == ledCurrentUpperLimitFlag)							//电流超
 	{
 		ledSwitch(1, 1);
-	//	ledSwitch(0, 0);
 	}
 
 	else if (1 == ledCurrentLowLimitFlag)							//电流低
 	{
 		ledBlink(1);
-	//	ledSwitch(0, 0);
 	}
-
+/*
 	else if (1 == ledStopWorkFlag)									//停止工作
 	{
 		enableGreenLedBreathe(1);
 	}
-
+*/
 	else if ((1 == ledNormalWorkFlag)&&(1 == ledReplaceBucketFlag))	//需要换桶
 	{
 		ledBlink(0);
-	//	ledSwitch(1, 0);
 	}
 	else															//正常工作
 	{
 		ledSwitch(0, 1);
-	//	ledSwitch(1, 0);
 	}
+
+	enableGreenLedBreathe(ledStopWorkFlag);
 }
 
 

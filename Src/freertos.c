@@ -134,8 +134,7 @@ void StartDataProcessingTask(void const * argument)
 	dataProcessing();
 	humiCtrl();
 	HAL_IWDG_Refresh(&hiwdg);
-	greenLedBreatheScan();
-	osDelay(100);
+	osDelay(10);
   }
   /* USER CODE END StartDataProcessingTask */
 }
@@ -148,8 +147,8 @@ void StartcheckKeyTask(void const * argument)
   for(;;)
   {
     osDelay(1);
+	greenLedBreatheScan();
 	keyScan();
-
   }
   /* USER CODE END StartcheckKeyTask */
 }

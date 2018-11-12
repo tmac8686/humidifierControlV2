@@ -32,9 +32,6 @@ uint16_t extraDrainWaterTime;		//额外排水时间
 uint16_t autoDrainWaterTime;		//自动排水时间
 uint16_t cleanDrainWaterTime;		//洗桶时间
 
-uint16_t ctrlToDisplayTemp[255];
-uint16_t ctrlToPLCTemp[255];
-
 volatile uint16_t ADC_ConvertedValue[4];
 uint32_t ADC_Average[4];
 
@@ -314,11 +311,4 @@ void dialSwitchInit() {
 void dataProcessing() {
 
 	adcProcesdsing();
-
-	ctrlToDisplayTemp[5] = humiCurrent;
-	ctrlToDisplayTemp[6] = humiOpening;
-	ctrlToDisplayTemp[7] = powerProportion;
-
-	ctrlToPLCTemp[0] = humiCurrent;
-	humiOpeningFromPLC = ctrlToPLCTemp[5];
 }

@@ -13,9 +13,6 @@ extern uint16_t humiOpening;			//加湿开度
 extern uint16_t humiOpeningFromPLC;
 extern uint16_t powerProportion;		//能量比例
 extern uint16_t humiCurrentUpperLimit;
-extern uint16_t ctrlToDisplayTemp[];
-extern uint16_t ctrlToPLCTemp[];
-//extern uint8_t humiMode;
 extern uint16_t extraDrainWaterTime;
 extern uint16_t autoDrainWaterTime;
 extern uint16_t cleanDrainWaterTime;
