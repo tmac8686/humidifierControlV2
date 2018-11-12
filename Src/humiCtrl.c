@@ -4,17 +4,17 @@
 #include "main.h"
 #include "ledCtrl.h"
 
-#define contactorOpen		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_SET)		//接触器开关
-#define contactorClose		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,GPIO_PIN_RESET)
+#define contactorOpen		HAL_GPIO_WritePin(relay4_GPIO_Port,relay4_Pin,GPIO_PIN_SET)		//接触器开关
+#define contactorClose		HAL_GPIO_WritePin(relay4_GPIO_Port,relay4_Pin,GPIO_PIN_RESET)
 
-#define drainValveOpen		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_7,GPIO_PIN_SET)		//排水
-#define drainValveClose		HAL_GPIO_WritePin(GPIOA,GPIO_PIN_7,GPIO_PIN_RESET)
+#define drainValveOpen		HAL_GPIO_WritePin(relay3_GPIO_Port,relay3_Pin,GPIO_PIN_SET)		//排水
+#define drainValveClose		HAL_GPIO_WritePin(relay3_GPIO_Port,relay3_Pin,GPIO_PIN_RESET)
 
-#define inletValveOpen		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET)		//进水
-#define inletValveClose		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET)
+#define inletValveOpen		HAL_GPIO_WritePin(relay2_GPIO_Port,relay2_Pin,GPIO_PIN_SET)		//进水
+#define inletValveClose		HAL_GPIO_WritePin(relay2_GPIO_Port,relay2_Pin,GPIO_PIN_RESET)
 
-#define signalRelayOpen		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET)		//输出信号继电器
-#define signalRelayClose	HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET)
+#define signalRelayOpen		HAL_GPIO_WritePin(relay1_GPIO_Port,relay1_Pin,GPIO_PIN_SET)		//输出信号继电器
+#define signalRelayClose	HAL_GPIO_WritePin(relay1_GPIO_Port,relay1_Pin,GPIO_PIN_RESET)
 
 #define waterLevelWarning	HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)						//高水位报警
 #define switchSignal		HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_15)						//开关信号
@@ -68,9 +68,13 @@ uint16_t startInletCurrent;			//开始进水电流
 uint16_t startDrainCurrent;			//开始排水电流
 uint16_t stopInletCurrent;			//停止进水电流
 
-uint8_t keyLock;					//按键触发后自锁的变量标志
-uint16_t keyTimeCount;				//按键去抖演示计数器
-uint8_t keyStatus;					//按键状态   按下：1；抬起：0
+uint8_t keyLock1;					//按键触发后自锁的变量标志
+uint16_t keyTimeCount1;				//按键去抖演示计数器
+uint8_t keyStatus1;					//按键状态   按下：1；抬起：0
+
+uint8_t keyLock2;					//按键触发后自锁的变量标志
+uint16_t keyTimeCount2;				//按键去抖演示计数器
+uint8_t keyStatus2;					//按键状态   按下：1；抬起：0
 
 uint16_t waterLevelOffCount;					//高水位报警断开每秒计数
 uint16_t waterLevelOnCount;						//高水位报警生效每秒计数
@@ -97,6 +101,8 @@ uint8_t ledCurrentUpperLimitFlag;		//超电流
 uint8_t ledDialSwitchErrorFlag;			//拨码错误
 uint8_t ledCurrentLowLimitFlag;			//低电流
 
+uint8_t displayNum;						//数码管显示顺序
+uint16_t warningCode;					//报警代码
 
 static void osDelaySecond(int s);
 static void drainWater(int s);
@@ -380,7 +386,7 @@ void humiCtrl() {
 				startDrainWaterWashBucketFlag = 1;
 				if (startDrainWaterWashBucketCount < 30)
 				{
-					printf("进入同时进排水阶段 \n");
+				//	printf("进入同时进排水阶段 \n");
 					ledStopWorkFlag = 0;
 					ledNormalWorkFlag = 1;
 
@@ -389,7 +395,7 @@ void humiCtrl() {
 				}
 				else						//超过30秒，关闭排水阀
 				{
-					printf("进入关闭排水阀阶段 \n");
+				//	printf("进入关闭排水阀阶段 \n");
 					drainValveClose;
 					contactorOpen;
 
@@ -406,7 +412,7 @@ void humiCtrl() {
 			{
 				if (1 == stopDrainWaterWashBucketFlag)
 				{
-					printf("进入5分钟排水阶段 \n");
+				//	printf("进入5分钟排水阶段 \n");
 					
 					if (stopDrainWaterWashBucketCount < cleanDrainWaterTime)	//不到5分钟
 					{
@@ -416,7 +422,7 @@ void humiCtrl() {
 					}
 					else
 					{
-						printf("进入最后阶段 \n");
+					//	printf("进入最后阶段 \n");
 						drainValveClose;						//5分钟后关闭排水阀,进水阀
 						inletValveClose;
 						stopDrainWaterWashBucketFlag = 0;
@@ -430,7 +436,7 @@ void humiCtrl() {
 				}
 			}
 
-			ledSwitch(1, 0);
+		//	ledSwitch(1, 0);
 			ledSwitch(0, 1);				//洗桶的时候亮绿灯
 		}
 
@@ -455,9 +461,9 @@ void humiCtrl() {
 			signalRelayOpen;
 		}
 
-		if (1 == keyStatus)
+		if (1 == keyStatus1)
 		{
-			keyStatus = 0;
+			keyStatus1 = 0;
 
 			if (1 == allowRunFlagDrainWater)
 			{
@@ -466,6 +472,16 @@ void humiCtrl() {
 			else {
 				allowRunFlagDrainWater = 1;
 				humiCtrlInit();
+			}
+		}
+
+		if (1 == keyStatus2)
+		{
+			keyStatus2 = 0;
+			displayNum++;
+			if (displayNum>3)
+			{
+				displayNum = 0;
 			}
 		}
 
@@ -559,18 +575,25 @@ static void alarmLampHandle() {
 
 	else if (1 == ledDrainWaterHandFlag)							//手动排水
 	{
+
+		printf("手动排水 \r\n");
+
 		switch (ledBlinkFlagTemp4)
 		{
-		case 0: ledSwitch(1, 1);
-			ledSwitch(0, 0);
+		case 0:
+			ledSwitch(1, 1);
+		//	ledSwitch(0, 0);
 			break;
-		case 1:	ledSwitch(1, 0);
+		case 1:	
+			//ledSwitch(1, 0);
 			ledSwitch(0, 1);
 			break;
-		case 2:	ledSwitch(1, 1);
-			ledSwitch(0, 0);
+		case 2:	
+			ledSwitch(1, 1);
+		//	ledSwitch(0, 0);
 			break;
-		case 3:	ledSwitch(1, 0);
+		case 3:	
+			//ledSwitch(1, 0);
 			ledSwitch(0, 1);
 			break;
 		default:
@@ -587,13 +610,13 @@ static void alarmLampHandle() {
 	else if(1 == ledCurrentUpperLimitFlag)							//电流超
 	{
 		ledSwitch(1, 1);
-		ledSwitch(0, 0);
+	//	ledSwitch(0, 0);
 	}
 
 	else if (1 == ledCurrentLowLimitFlag)							//电流低
 	{
 		ledBlink(1);
-		ledSwitch(0, 0);
+	//	ledSwitch(0, 0);
 	}
 
 	else if (1 == ledStopWorkFlag)									//停止工作
@@ -604,12 +627,12 @@ static void alarmLampHandle() {
 	else if ((1 == ledNormalWorkFlag)&&(1 == ledReplaceBucketFlag))	//需要换桶
 	{
 		ledBlink(0);
-		ledSwitch(1, 0);
+	//	ledSwitch(1, 0);
 	}
 	else															//正常工作
 	{
 		ledSwitch(0, 1);
-		ledSwitch(1, 0);
+	//	ledSwitch(1, 0);
 	}
 }
 
@@ -617,19 +640,35 @@ static void alarmLampHandle() {
 //按键扫描函数
 void keyScan() {
 
-	if (1 == HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_15))		//IO 是高电平，说明按键没有被按下，这时要及时清零一些标志位
+	if (1 == HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_2))		//IO 是高电平，说明按键没有被按下，这时要及时清零一些标志位
 	{
-		keyLock = 0;			//按键自锁标志清零
-		keyTimeCount = 0;		//按键去抖动延时计数器清零
+		keyLock1 = 0;			//按键自锁标志清零
+		keyTimeCount1 = 0;		//按键去抖动延时计数器清零
 	}
-	else if(keyLock == 0)		//有按键按下，且是第一次被按下
+	else if(keyLock1 == 0)		//有按键按下，且是第一次被按下
 	{
-		keyTimeCount++;
-		if (keyTimeCount > KEY_TIME)
+		keyTimeCount1++;
+		if (keyTimeCount1 > KEY_TIME)
 		{
-			keyTimeCount = 0;
-			keyLock = 1;
-			keyStatus = 1;
+			keyTimeCount1 = 0;
+			keyLock1 = 1;
+			keyStatus1 = 1;
+		}
+	}
+
+	if (1 == HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_3))		//IO 是高电平，说明按键没有被按下，这时要及时清零一些标志位
+	{
+		keyLock2 = 0;			//按键自锁标志清零
+		keyTimeCount2 = 0;		//按键去抖动延时计数器清零
+	}
+	else if (keyLock2 == 0)		//有按键按下，且是第一次被按下
+	{
+		keyTimeCount2++;
+		if (keyTimeCount2 > KEY_TIME)
+		{
+			keyTimeCount2 = 0;
+			keyLock2 = 1;
+			keyStatus2 = 1;
 		}
 	}
 }

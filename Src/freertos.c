@@ -135,7 +135,7 @@ void StartDataProcessingTask(void const * argument)
 	humiCtrl();
 	HAL_IWDG_Refresh(&hiwdg);
 	greenLedBreatheScan();
-	osDelay(2);
+	osDelay(100);
   }
   /* USER CODE END StartDataProcessingTask */
 }
@@ -162,6 +162,23 @@ void StartDisplayTask(void const * argument)
   for(;;)
   {
     osDelay(1);
+	switch (displayNum)
+	{
+	case 0:
+		disPlayData(1, humiCurrent);
+		break;
+	case 1:
+		disPlayData(2, humiOpening);
+		break;
+	case 2:
+		disPlayData(3, powerProportion);
+		break;
+	case 3:
+		disPlayData(4, warningCode);
+		break;
+	default:
+		break;
+	}
   }
   /* USER CODE END StartDisplayTask */
 }

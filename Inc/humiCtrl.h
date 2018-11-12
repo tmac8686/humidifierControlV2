@@ -28,6 +28,9 @@ extern uint8_t overCurrentFlag;
 extern uint16_t overCurrentCount;
 extern uint8_t startLowerLimitCountFlag;
 extern uint16_t lowerLimitCount;
+extern uint8_t displayNum;						//数码管显示顺序
+extern uint16_t warningCode;					//报警代码
+
 void humiCtrlInit();
 void humiCtrl();
 void keyScan();

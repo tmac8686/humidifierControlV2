@@ -51,7 +51,7 @@ static void adcProcesdsing() {
 
 	humiOpeningV = ADC_Average[0] *10/ 4096;
 
-	humiCurrent = ADC_Average[1] *6/4096 - 1;//选用39R电阻。0-60A-->0-60ma-->0-0.06*39*1.414V-->0-3.3V-->0-4095
+	humiCurrent = ADC_Average[1] *6/4096;//选用39R电阻。0-60A-->0-60ma-->0-0.06*39*1.414V-->0-3.3V-->0-4095
 										//0-600 对应 0-4095.
 
 	if (ADC_Average[2]<84000)
@@ -75,6 +75,8 @@ static void adcProcesdsing() {
 	{
 		ADC_Average[i] = 0;
 	}
+
+	printf("%d \n", humiCurrent);
 }
 
 /*************************************由功率计算出额定电流************************************/
@@ -96,7 +98,6 @@ static uint16_t getIFromP(uint16_t p) {
 	{
 		return p / humiVoltage * 10;
 	}
-
 }
 
 void dialSwitchInit() {
