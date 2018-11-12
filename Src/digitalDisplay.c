@@ -17,7 +17,7 @@ static uint8_t* intToFloat(uint16_t data) {
 		floatTemp[0] = (data / 1000) % 10 + 48;
 		floatTemp[1] = (data / 100) % 10 + 48;
 		floatTemp[2] = (data / 10) % 10 + 48;
-		floatTemp[4] = '\0';
+		floatTemp[3] = '\0';
 	}
 
 	return floatTemp;
@@ -116,6 +116,16 @@ data   0£¬1£¬2£¬3£¬4£¬5£¬6£¬7£¬8£¬9£¬a,b,c,d
 */
 static void digitalDisplayNum(uint8_t num, uint8_t data)
 {
+
+	HAL_GPIO_WritePin(dig_a_GPIO_Port, dig_a_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(dig_b_GPIO_Port, dig_b_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(dig_c_GPIO_Port, dig_c_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(dig_d_GPIO_Port, dig_d_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(dig_e_GPIO_Port, dig_e_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(dig_f_GPIO_Port, dig_f_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(dig_g_GPIO_Port, dig_g_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(dig_dp_GPIO_Port, dig_dp_Pin, GPIO_PIN_RESET);
+
 	switch (num)
 	{
 

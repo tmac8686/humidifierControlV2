@@ -75,8 +75,6 @@ static void adcProcesdsing() {
 	{
 		ADC_Average[i] = 0;
 	}
-
-	printf("%d \n", humiCurrent);
 }
 
 /*************************************由功率计算出额定电流************************************/

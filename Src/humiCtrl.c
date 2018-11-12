@@ -16,8 +16,8 @@
 #define signalRelayOpen		HAL_GPIO_WritePin(relay1_GPIO_Port,relay1_Pin,GPIO_PIN_SET)		//输出信号继电器
 #define signalRelayClose	HAL_GPIO_WritePin(relay1_GPIO_Port,relay1_Pin,GPIO_PIN_RESET)
 
-#define waterLevelWarning	HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4)						//高水位报警
-#define switchSignal		HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_15)						//开关信号
+#define waterLevelWarning	HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_14)						//高水位报警
+#define switchSignal		HAL_GPIO_ReadPin(GPIOC,GPIO_PIN_13)						//开关信号
 
 const uint8_t KEY_TIME = 50;							//按键消抖延时时间
 const uint8_t WATER_LEVEL_OFF_COUNT_CONST = 15;			//高水位报警断开每秒计数设定值
