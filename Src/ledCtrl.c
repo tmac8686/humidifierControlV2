@@ -16,6 +16,8 @@ static void user_pwm_setvalue(uint16_t value)
 
 void greenLedBreatheScan()
 {
+
+	ledSwitch(1, 0);			//Òª¿ªÆôºôÎüµÆÊ±£¬¹Ø±ÕºìµÆ£¬·ÀÖ¹±äÎªºìÉ«ºôÎüµÆ
 	if (breatheEnalble)
 	{
 		if (pwm_value >1000)

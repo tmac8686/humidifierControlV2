@@ -627,19 +627,19 @@ static void alarmLampHandle() {
 
 		warningCode = 10060;
 	}
+
+	else if (ledStopWorkFlag)
+	{
+		warningCode = 10070;
+	}
+
 	else															//正常工作
 	{
 		ledSwitch(0, 1);
-
 		warningCode = 10000;
 	}
 
 	enableGreenLedBreathe(ledStopWorkFlag);							//停止工作 呼吸灯
-
-	if (ledStopWorkFlag)
-	{
-		warningCode = 10070;
-	}
 }
 
 
