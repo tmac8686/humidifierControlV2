@@ -32,8 +32,10 @@ const uint32_t WORK_TIME_ADDUP_CONST = 2160000;			//累计运行时间报警上限600小时 
 uint8_t nonstopWorkFlag;			//连续工作标志
 uint32_t nonstopWorkCount;			//连续工作计数
 
+
 uint8_t ledBlinkFlagTemp4;			//红绿灯交错闪烁标志
 uint8_t ledBlinkFlagTemp8;
+uint8_t ledBlinkFlagWaterLevel;
 
 uint8_t startLowerLimitCountFlag;	//低电流计数标志
 uint16_t lowerLimitCount;			//低电流计数
@@ -161,6 +163,7 @@ void humiCtrl() {
 			shutOffCurrentLowerLimit = humiCurrentUpperLimit*humiOpening / 1000.0 * powerProportion / 1000.0 * 0.3;
 			startInletCurrent = humiCurrentUpperLimit*humiOpening / 1000.0 * powerProportion / 1000.0 * 0.9;
 			stopInletCurrent = humiCurrentUpperLimit*humiOpening / 1000.0 * powerProportion / 1000.0 * 1.1;
+			startDrainCurrent = humiCurrentUpperLimit * humiOpening / 1000.0 * powerProportion / 1000.0* 1.2;
 
 			if (humiOpening < 50)						//当比例信号低于5%是记录标志位
 			{
@@ -197,6 +200,7 @@ void humiCtrl() {
 			shutOffCurrentLowerLimit = humiCurrentUpperLimit * powerProportion / 1000 * 0.3;
 			startInletCurrent = humiCurrentUpperLimit * powerProportion / 1000 * 0.9;
 			stopInletCurrent = humiCurrentUpperLimit * powerProportion / 1000 * 1.1;
+			startDrainCurrent = humiCurrentUpperLimit *  powerProportion / 1000.0* 1.2;
 		}
 
 		if ((needWashBucketCount > NEED_WASH_BUCKET_COUNT_CONST)&&(1 == allowRunFlagProportion))			//接触器持续断开时间大于72小时
@@ -538,35 +542,27 @@ static void alarmLampHandle() {
 		{
 		case 0: 
 			ledSwitch(1, 1);
-			//ledSwitch(0, 0);
 			break;
 		case 1:	
 			ledSwitch(1, 0);
-		//	ledSwitch(0, 0);
 			break;
 		case 2: 
 			ledSwitch(1, 1);
-		//	ledSwitch(0, 0);
 			break;
 		case 3:	
 			ledSwitch(1, 0);
-		//	ledSwitch(0, 0);
 			break;
 		case 4: 
-		//	ledSwitch(1, 0);
 			ledSwitch(0, 1);
 			break;
 		case 5:	
 			ledSwitch(1, 0);
-			//ledSwitch(0, 0);
 			break;
 		case 6:	
-		//	ledSwitch(1, 0);
 			ledSwitch(0, 1);
 			break;
 		case 7:	
 			ledSwitch(1, 0);
-		//	ledSwitch(0, 0);
 			break;
 		default:
 			break;
@@ -579,18 +575,14 @@ static void alarmLampHandle() {
 		{
 		case 0:
 			ledSwitch(1, 1);
-		//	ledSwitch(0, 0);
 			break;
 		case 1:	
-			//ledSwitch(1, 0);
 			ledSwitch(0, 1);
 			break;
 		case 2:	
 			ledSwitch(1, 1);
-		//	ledSwitch(0, 0);
 			break;
 		case 3:	
-			//ledSwitch(1, 0);
 			ledSwitch(0, 1);
 			break;
 		default:
@@ -600,8 +592,13 @@ static void alarmLampHandle() {
 
 	else if(1 == ledWaterUpperLevelFlag)							//最大水位
 	{
-		ledBlink(1);
-		ledSwitch(0, 1);
+		if (ledBlinkFlagWaterLevel ==1 )
+		{
+			ledSwitch(1, 1);
+		}
+		else {
+			ledSwitch(0, 1);
+		}
 	}
 
 	else if(1 == ledCurrentUpperLimitFlag)							//电流超
@@ -613,12 +610,7 @@ static void alarmLampHandle() {
 	{
 		ledBlink(1);
 	}
-/*
-	else if (1 == ledStopWorkFlag)									//停止工作
-	{
-		enableGreenLedBreathe(1);
-	}
-*/
+
 	else if ((1 == ledNormalWorkFlag)&&(1 == ledReplaceBucketFlag))	//需要换桶
 	{
 		ledBlink(0);
@@ -628,7 +620,7 @@ static void alarmLampHandle() {
 		ledSwitch(0, 1);
 	}
 
-	enableGreenLedBreathe(ledStopWorkFlag);
+	enableGreenLedBreathe(ledStopWorkFlag);							//停止工作 呼吸灯
 }
 
 
@@ -722,7 +714,7 @@ void humiCtrlInit() {
 	startDrainWaterWashBucketCount = 0;
 
 	shutOffCurrentTopLimit = humiCurrentUpperLimit*1.4;
-	startDrainCurrent = humiCurrentUpperLimit * 1.2;
+//	startDrainCurrent = humiCurrentUpperLimit * 1.2;
 
 	washBucketStage = 1;								//洗桶所处在的阶段
 	

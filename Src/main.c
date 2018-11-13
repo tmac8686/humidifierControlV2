@@ -251,6 +251,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	  {
 		  ledBlinkFlagTemp8 = 0;
 	  }
+
+	  ledBlinkFlagWaterLevel++;
+	  if (ledBlinkFlagWaterLevel > 10)
+	  {
+		  ledBlinkFlagWaterLevel = 0;
+	  }
   }
   else if (htim->Instance == TIM3)//tim3 1s÷–∂œ
   {
