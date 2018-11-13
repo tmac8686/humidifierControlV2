@@ -251,8 +251,9 @@ void humiCtrl() {
 						ledCurrentLowLimitFlag = 0;
 
 						drainWater(autoDrainWaterTime);				//此处排水该为阻塞式，因为排水时接触器会断开，无电流，会误进入其他状态
+					/*
 						beyond120Count++;
-						if (beyond120Count >= 5 )					//基准电流超过120%，自动排水五次，触发高电流报警
+						if (beyond120Count >= 5 )					//基准电流超过120%且自动排水五次，触发高电流报警
 						{
 							beyond120Count = 0;
 							alarmFlag = 1;
@@ -261,6 +262,7 @@ void humiCtrl() {
 							ledCurrentUpperLimitFlag = 1;
 							ledCurrentLowLimitFlag = 0;
 						}
+						*/
 					}
 				}
 
@@ -567,6 +569,8 @@ static void alarmLampHandle() {
 		default:
 			break;
 		}
+
+		warningCode = 10010;
 	}
 
 	else if (1 == ledDrainWaterHandFlag)							//手动排水
@@ -588,6 +592,7 @@ static void alarmLampHandle() {
 		default:
 			break;
 		}
+		warningCode = 10020;
 	}
 
 	else if(1 == ledWaterUpperLevelFlag)							//最大水位
@@ -599,28 +604,42 @@ static void alarmLampHandle() {
 		else {
 			ledSwitch(0, 1);
 		}
+		warningCode = 10030;
 	}
 
 	else if(1 == ledCurrentUpperLimitFlag)							//电流超
 	{
 		ledSwitch(1, 1);
+
+		warningCode = 10040;
 	}
 
 	else if (1 == ledCurrentLowLimitFlag)							//电流低
 	{
 		ledBlink(1);
+
+		warningCode = 10050;
 	}
 
 	else if ((1 == ledNormalWorkFlag)&&(1 == ledReplaceBucketFlag))	//需要换桶
 	{
 		ledBlink(0);
+
+		warningCode = 10060;
 	}
 	else															//正常工作
 	{
 		ledSwitch(0, 1);
+
+		warningCode = 10000;
 	}
 
 	enableGreenLedBreathe(ledStopWorkFlag);							//停止工作 呼吸灯
+
+	if (ledStopWorkFlag)
+	{
+		warningCode = 10070;
+	}
 }
 
 
