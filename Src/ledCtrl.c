@@ -31,10 +31,10 @@ void greenLedBreatheScan()
 
 		if (addFlag)
 		{
-			pwm_value++;
+			pwm_value = pwm_value + 2;
 		}
 		else {
-			pwm_value--;
+			pwm_value = pwm_value - 2;
 		}
 
 		user_pwm_setvalue(pwm_value);
