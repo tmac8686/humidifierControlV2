@@ -99,7 +99,7 @@ void dialSwitchInit() {
 
 
 	/***********************************  控制模式选择  **********************************/
-
+	/*
 	if (readS2Pin1 == 1)
 	{
 		humiMode = PROPORTIONMODE;
@@ -108,6 +108,16 @@ void dialSwitchInit() {
 	if (readS2Pin1 == 0)
 	{
 		humiMode = SWITCHMODE;
+	}
+	*/
+
+
+	if (HAL_GPIO_ReadPin(select_GPIO_Port,select_Pin))
+	{
+		humiMode = SWITCHMODE;
+	}
+	else {
+		humiMode = PROPORTIONMODE;
 	}
 
 	/***********************************  加湿电压选择  *************************************/

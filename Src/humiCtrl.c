@@ -375,6 +375,7 @@ void humiCtrl() {
 			{
 				humiSuspend();
 				nonstopWorkFlag = 0;
+				ledStopWorkFlag = 1;//开关信号为0时，改变led状态
 			}
 		}
 		else if (1 == alarmFlag)		//有报警信号
@@ -478,16 +479,6 @@ void humiCtrl() {
 			else {
 				allowRunFlagDrainWater = 1;
 				humiCtrlInit();
-			}
-		}
-
-		if (1 == keyStatus2)
-		{
-			keyStatus2 = 0;
-			displayNum++;
-			if (displayNum>3)
-			{
-				displayNum = 0;
 			}
 		}
 
@@ -677,6 +668,17 @@ void keyScan() {
 			keyStatus2 = 1;
 		}
 	}
+
+	if (1 == keyStatus2)
+	{
+		keyStatus2 = 0;
+		displayNum++;
+		if (displayNum>3)
+		{
+			displayNum = 0;
+		}
+	}
+
 }
 
 

@@ -43,6 +43,10 @@ void greenLedBreatheScan()
 void enableGreenLedBreathe(uint8_t enable)
 {
 	breatheEnalble = enable;
+	if (enable)
+	{
+		HAL_GPIO_WritePin(red_led_GPIO_Port, red_led_Pin, GPIO_PIN_RESET);//关闭红灯，保证不会出现红色呼吸灯
+	}
 }
 
 
