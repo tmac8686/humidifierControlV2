@@ -669,7 +669,7 @@ void keyScan() {
 		}
 	}
 
-	if (1 == keyStatus2)
+	if (1 == keyStatus2)	//key2的处理放在这里，防止排水时卡住。
 	{
 		keyStatus2 = 0;
 		displayNum++;
@@ -678,7 +678,6 @@ void keyScan() {
 			displayNum = 0;
 		}
 	}
-
 }
 
 
@@ -702,7 +701,7 @@ static void osDelaySecond(int s) {
 
 void fristWashBucket(){
 
-	allowRunFlagWashBucket = 0;
+	allowRunFlagWashBucket = switchWashBucket^1;
 }
 
 

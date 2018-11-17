@@ -6,6 +6,7 @@
 #define SWITCHMODE		1
 #define COMMUNICATION	2
 
+extern uint8_t switchWashBucket;
 extern uint8_t switchSetFlag;			
 extern uint8_t humiMode;
 extern uint16_t humiCurrent;			//当前电流

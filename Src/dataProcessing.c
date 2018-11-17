@@ -14,6 +14,7 @@
 #define readS1Pin5			HAL_GPIO_ReadPin(s1_pin5_GPIO_Port, s1_pin5_Pin)
 #define readS1Pin6			HAL_GPIO_ReadPin(s1_pin6_GPIO_Port, s1_pin6_Pin)
 
+uint8_t switchWashBucket;					//拨码开关初始化标志：第一次上电是否洗桶： 0：不洗，1：洗
 uint8_t switchSetFlag;						//拨码开关初始化标志：未初始化：0；已初始化：1
 uint8_t switchSetFlagV;						//拨码开关初始化标志:电压设置相关
 uint8_t switchSetFlagI;						//拨码开关初始化标志:电流设置相关
@@ -97,6 +98,10 @@ static uint16_t getIFromP(uint16_t p) {
 
 void dialSwitchInit() {
 
+
+	/**************************************是否上电洗桶*****************************************/
+
+	switchWashBucket = readS2Pin1;
 
 	/***********************************  控制模式选择  **********************************/
 	/*
