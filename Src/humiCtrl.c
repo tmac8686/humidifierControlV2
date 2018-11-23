@@ -495,7 +495,7 @@ void humiCtrl() {
 			ledDrainWaterHandFlag = 0;
 		}
 
-		manualDrainWaterScan(30);	//手动排水的扫描函数。时间cleanDrainWaterTime自动关闭
+		manualDrainWaterScan(MAUNAL_DRAIN_WATER_BACK_TIME);	//手动排水的扫描函数。时间MAUNAL_DRAIN_WATER_BACK_TIME自动关闭
 	}
 	else
 	{	

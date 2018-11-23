@@ -206,13 +206,6 @@ void dialSwitchInit() {
 	*	humiCurrentUpperLimit为实际额定电流*10，方便后面数据处理
 	*/
 
-	uint8_t s2_1 = readS2Pin1;
-	uint8_t s2_2 = readS2Pin2;
-	uint8_t s2_3 = readS2Pin3;
-	uint8_t s2_4 = readS2Pin4;
-	uint8_t s2_5 = readS2Pin5;
-	uint8_t s2_6 = readS2Pin6;
-
 
 	if ((readS2Pin2 == 1) && (readS2Pin3 == 1) && (readS2Pin4 == 0) && (readS2Pin5 == 0))			//2公斤
 	{
