@@ -500,6 +500,7 @@ void humiCtrl() {
 	else
 	{	
 		ledDialSwitchErrorFlag = 1;
+		ledStopWorkFlag = 0;
 	}
 	alarmLampHandle();
 }
