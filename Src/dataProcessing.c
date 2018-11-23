@@ -123,7 +123,7 @@ void dialSwitchInit() {
 	}
 	else {
 		humiMode = PROPORTIONMODE;
-	}
+	}    
 
 	/***********************************  加湿电压选择  *************************************/
 	if ((readS1Pin3 == 0) && (readS1Pin4 == 0)&& (readS1Pin5 == 0) && (readS1Pin6 == 0))//0000>>120
@@ -224,7 +224,7 @@ void dialSwitchInit() {
 	else if ((readS2Pin2 == 1) && (readS2Pin3 == 0) && (readS2Pin4 == 0) && (readS2Pin5 == 0))		//4公斤
 	{
 		humiCurrentUpperLimit = getIFromP(3000);
-		autoDrainWaterTime = 8;
+		autoDrainWaterTime = 4;
 		cleanDrainWaterTime = 90;
 		switchSetFlagI = 1;
 	}
