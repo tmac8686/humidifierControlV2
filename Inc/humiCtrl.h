@@ -36,3 +36,4 @@ void humiCtrlInit();
 void humiCtrl();
 void keyScan();
 void fristWashBucket();
+void alarmLampHandle();

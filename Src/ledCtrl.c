@@ -19,11 +19,11 @@ void greenLedBreatheScan()
 
 	if (breatheEnalble)
 	{
-		if (pwm_value >1000)
+		if (pwm_value >=998)
 		{
 			addFlag = 0;
 		}
-		if (pwm_value<0)
+		if (pwm_value<=2)
 		{
 			addFlag = 1;
 		}

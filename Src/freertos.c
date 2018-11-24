@@ -139,6 +139,7 @@ void StartDataProcessingTask(void const * argument)
 	{
 		HAL_IWDG_Refresh(&hiwdg);
 		dataProcessing();
+		alarmLampHandle();
 		osDelay(100);
 	}
   /* USER CODE END StartDataProcessingTask */
@@ -195,7 +196,7 @@ void StartHumiCtrlTask(void const * argument)
 	for (;;)
 	{
 		humiCtrl();
-		osDelay(100);
+		osDelay(1000);
 	}
   /* USER CODE END StartHumiCtrlTask */
 }

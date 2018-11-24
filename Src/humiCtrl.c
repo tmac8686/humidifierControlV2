@@ -111,7 +111,6 @@ static void drainWater(int s);
 static void humiSuspend();
 static void inletValveOpenWithLimit();
 static void manualDrainWaterScan(int s);
-static void alarmLampHandle();
 static void extraDrainWater();
 
 /*
@@ -502,7 +501,7 @@ void humiCtrl() {
 		ledDialSwitchErrorFlag = 1;
 		ledStopWorkFlag = 0;
 	}
-	alarmLampHandle();
+//	alarmLampHandle();     //转移到100ms线程中去
 }
 
 
@@ -528,7 +527,7 @@ static void extraDrainWater() {
 }
 
 //报警灯集中处理
-static void alarmLampHandle() {
+void alarmLampHandle() {
 
 	if (1 == ledDialSwitchErrorFlag)								//拨码错误
 	{
