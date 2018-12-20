@@ -54,7 +54,7 @@ uint16_t overCurrentCount;			//超电流计数
 
 uint8_t alarmFlag;					//报警标志
 
-uint8_t waterValveFailureFlag;		//水阀故障标记	无故障:1;有故障:1
+uint8_t waterValveFailureFlag;		//水阀故障标记	无故障:1;有故障:0
 uint8_t inletFlag;					//进水标志		进水开：1；进水关：0
 uint16_t inletTimeCount;			//进水时间计数
 
@@ -365,6 +365,10 @@ void humiCtrl() {
 							ledCurrentUpperLimitFlag = 0;
 							ledCurrentLowLimitFlag = 1;
 						}
+					}
+					else {
+						startLowerLimitCountFlag = 0;
+						lowerLimitCount = 0;
 					}
 				}
 				
