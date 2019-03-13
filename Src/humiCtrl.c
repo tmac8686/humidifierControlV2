@@ -26,7 +26,7 @@ const uint32_t NEED_WASH_BUCKET_COUNT_CONST = 259200;	//о╢м╟╪фйЩиооч72*60*60 72п
 const uint16_t CONTINUE_INLET_WATER = 1800;				//╫Ьк╝й╠╪Д╪фй╠ё╛Ё╛╧Щ30╥жжсё╛еп╤он╙╫Ьк╝╥╖╩РЁЖк╝╥╖кП╩╣	
 const uint16_t EXTRA_DRAIN_WATER_TIME = 1200;			//╤НмБеек╝й╠╪Д 20*60 = 1200
 const uint16_t MAUNAL_DRAIN_WATER_BACK_TIME = 1200;		//йж╤╞еек╝╨С╣двт╤╞╧ь╠уй╠╪Д
-const uint16_t LOW_CURRENT_OFF_TIME = 1800;				//╣м╣ГаВ╧ь╩З ╡Бйтн╙30цКё╛й╣╪йн╙10*60цК
+const uint16_t LOW_CURRENT_OFF_TIME = 1800;				//╣м╣ГаВ╧ь╩З ╡Бйтн╙30цКё╛й╣╪йн╙30*60цК
 const uint32_t WORK_TIME_ADDUP_CONST = 2160000;			//юш╪фткппй╠╪Д╠╗╬╞иооч600п║й╠ 600*3600 = 2160000
 
 uint8_t nonstopWorkFlag;			//а╛пЬ╧╓вВ╠Йж╬
