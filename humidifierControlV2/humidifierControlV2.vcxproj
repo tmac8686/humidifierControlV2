@@ -165,7 +165,6 @@
     <ClInclude Include="..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h" />
     <ClInclude Include="..\Middlewares\Third_Party\FreeRTOS\Source\include\event_groups.h" />
     <ClInclude Include="..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h" />
-    <ClInclude Include="..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOSConfig_template.h" />
     <ClInclude Include="..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h" />
     <ClInclude Include="..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_prototypes.h" />
     <ClInclude Include="..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h" />

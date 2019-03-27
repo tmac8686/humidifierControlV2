@@ -45,7 +45,7 @@
     <AllDependencies>
       <ProjectDependency>
         <RelativePath>..\humidifierControlV2.gpdsc</RelativePath>
-        <Timestamp>131874350935876588</Timestamp>
+        <Timestamp>131981452715579465</Timestamp>
       </ProjectDependency>
     </AllDependencies>
     <RootDirectory>
@@ -177,9 +177,6 @@
                 </VirtualFileSnapshot>
                 <VirtualFileSnapshot>
                   <RelativePath>..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h</RelativePath>
-                </VirtualFileSnapshot>
-                <VirtualFileSnapshot>
-                  <RelativePath>..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOSConfig_template.h</RelativePath>
                 </VirtualFileSnapshot>
                 <VirtualFileSnapshot>
                   <RelativePath>..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h</RelativePath>
@@ -379,7 +376,7 @@
           <RelativePath>..\Src\stm32f1xx_hal_msp.c</RelativePath>
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
-          <RelativePath>..\Src\stm32f1xx_hal_timebase_TIM.c</RelativePath>
+          <RelativePath>..\Src\stm32f1xx_hal_timebase_tim.c</RelativePath>
         </VirtualFileSnapshot>
         <VirtualFileSnapshot>
           <RelativePath>..\Src\main.c</RelativePath>

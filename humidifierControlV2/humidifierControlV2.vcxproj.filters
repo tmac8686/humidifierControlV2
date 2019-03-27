@@ -348,9 +348,6 @@
     <ClInclude Include="..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h">
       <Filter>Header files\STM32Cube HAL\FREERTOS</Filter>
     </ClInclude>
-    <ClInclude Include="..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOSConfig_template.h">
-      <Filter>Header files\STM32Cube HAL\FREERTOS</Filter>
-    </ClInclude>
     <ClInclude Include="..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h">
       <Filter>Header files\STM32Cube HAL\FREERTOS</Filter>
     </ClInclude>
