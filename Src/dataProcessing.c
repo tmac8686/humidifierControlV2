@@ -21,7 +21,7 @@ uint8_t switchSetFlagI;						//拨码开关初始化标志:电流设置相关
 uint8_t humiMode;
 uint16_t alarmCode;
 uint16_t humiCurrent;
-uint16_t humiOpening;
+uint16_t humiOpening;//0-1000
 uint16_t humiOpeningV;
 uint16_t humiOpeningI;
 uint16_t humiOpeningFromPLC;

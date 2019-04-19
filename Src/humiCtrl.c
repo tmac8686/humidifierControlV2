@@ -122,6 +122,8 @@ static void extraDrainWater();
 
 */
 
+
+
 void humiCtrl() {
 
 	inletFlag = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0);		//读取进水阀状态
@@ -163,6 +165,31 @@ void humiCtrl() {
 			startInletCurrent = humiCurrentUpperLimit*humiOpening / 1000.0 * powerProportion / 1000.0 * 0.9;
 			stopInletCurrent = humiCurrentUpperLimit*humiOpening / 1000.0 * powerProportion / 1000.0 * 1.1;
 			startDrainCurrent = humiCurrentUpperLimit * humiOpening / 1000.0 * powerProportion / 1000.0* 1.2;
+
+			
+			// 19-4-18 增加要求：外部比例信号40%-50%时按照50%执行，外部比例信号30%-40%时按照40%执行，低于30%按30%执行。
+			//防止外部控制信号很低时频繁排水。
+			if ((humiOpening < 500) && (humiOpening > 400))
+			{
+				startDrainCurrent = humiCurrentUpperLimit * 500 / 1000.0 * powerProportion / 1000.0* 1.2;
+			}
+			else if((humiOpening <= 400)&&(humiOpening > 300))
+			{
+				startDrainCurrent = humiCurrentUpperLimit * 400 / 1000.0 * powerProportion / 1000.0* 1.2;
+			}
+			else if(humiOpening <= 300)
+			{
+				startDrainCurrent = humiCurrentUpperLimit * 300 / 1000.0 * powerProportion / 1000.0* 1.2;
+			}
+
+
+			printf("shutOffCurrentLowerLimit = %d\n", shutOffCurrentLowerLimit);
+			printf("startInletCurrent = %d\n", startInletCurrent);
+			printf("stopInletCurrent = %d\n", stopInletCurrent);
+			printf("startDrainCurrent = %d\n", startDrainCurrent);
+			printf("humiCurrent = %d\n", humiCurrent);
+			printf("============================\n");
+
 
 			if (humiOpening < 50)						//当比例信号低于5%是记录标志位
 			{
@@ -207,7 +234,7 @@ void humiCtrl() {
 			allowRunFlagWashBucket = 0;
 		}
 	
-		//运行需满足四个条件：1.开关信号闭合。2.非排水状态。3.非报警。4.比例模式时，比例值大于25%
+		//运行需满足四个条件：1.开关信号闭合。2.非排水状态。3.非报警。4.比例模式时，比例值大于25%。5.水阀无故障
 		if ((1 == allowRunFlagDrainWater) && (0 == alarmFlag) && (1 == allowRunFlagProportion)&&(1 == waterValveFailureFlag)&&(1 == allowRunFlagWashBucket))
 		{
 
@@ -249,7 +276,7 @@ void humiCtrl() {
 						ledCurrentUpperLimitFlag = 0;
 						ledCurrentLowLimitFlag = 0;
 
-						drainWater(autoDrainWaterTime);				//此处排水该为阻塞式，因为排水时接触器会断开，无电流，会误进入其他状态
+						drainWater(autoDrainWaterTime);				//此处排水改为阻塞式，因为排水时接触器会断开，无电流，会误进入其他状态
 					/*
 						beyond120Count++;
 						if (beyond120Count >= 5 )					//基准电流超过120%且自动排水五次，触发高电流报警
@@ -323,7 +350,7 @@ void humiCtrl() {
 					}
 				}
 
-				else if (humiCurrent < startInletCurrent)			//电流不足，进水
+				else if (humiCurrent < startInletCurrent)			//电流不足，进水 
 				{
 
 					ledStopWorkFlag = 0;
