@@ -28,6 +28,7 @@ uint16_t humiOpeningFromPLC;
 uint16_t humiCurrentUpperLimit;
 uint16_t humiVoltage = 380;
 uint16_t powerProportion;
+uint8_t humiVersion;				//加湿器型号
 
 uint16_t extraDrainWaterTime;		//额外排水时间
 uint16_t autoDrainWaterTime;		//自动排水时间
@@ -213,6 +214,7 @@ void dialSwitchInit() {
 		autoDrainWaterTime = 2;
 		cleanDrainWaterTime = 90;
 		switchSetFlagI = 1;
+		humiVersion = 2;
 	}
 
 	else if ((readS2Pin2 == 0) && (readS2Pin3 == 1) && (readS2Pin4 == 0) && (readS2Pin5 == 0))		//3公斤
@@ -221,6 +223,7 @@ void dialSwitchInit() {
 		autoDrainWaterTime = 2;
 		cleanDrainWaterTime = 90;
 		switchSetFlagI = 1;
+		humiVersion = 3;
 	}
 
 	else if ((readS2Pin2 == 1) && (readS2Pin3 == 0) && (readS2Pin4 == 0) && (readS2Pin5 == 0))		//4公斤
@@ -229,6 +232,7 @@ void dialSwitchInit() {
 		autoDrainWaterTime = 3;
 		cleanDrainWaterTime = 90;
 		switchSetFlagI = 1;
+		humiVersion = 4;
 	}
 
 	else if ((readS2Pin2 == 1) && (readS2Pin3 == 0) && (readS2Pin4 == 1) && (readS2Pin5 == 0))		//8公斤
@@ -237,6 +241,7 @@ void dialSwitchInit() {
 		autoDrainWaterTime = 8;
 		cleanDrainWaterTime = 120;
 		switchSetFlagI = 1;
+		humiVersion = 8;
 	}
 
 	else if ((readS2Pin2 == 1) && (readS2Pin3 == 1) && (readS2Pin4 == 1) && (readS2Pin5 == 0))		//13公斤
@@ -245,6 +250,7 @@ void dialSwitchInit() {
 		autoDrainWaterTime = 10;
 		cleanDrainWaterTime = 180;
 		switchSetFlagI = 1;
+		humiVersion = 13;
 	}
 
 	else if ((readS2Pin2 == 1) && (readS2Pin3 == 0) && (readS2Pin4 == 0) && (readS2Pin5 == 1))		//15公斤
@@ -253,6 +259,7 @@ void dialSwitchInit() {
 		autoDrainWaterTime = 10;
 		cleanDrainWaterTime = 180;
 		switchSetFlagI = 1;
+		humiVersion = 15;
 	}
 
 	else if ((readS2Pin2 == 1) && (readS2Pin3 == 1) && (readS2Pin4 == 0) && (readS2Pin5 == 1))		//23公斤
@@ -261,6 +268,7 @@ void dialSwitchInit() {
 		autoDrainWaterTime = 10;
 		cleanDrainWaterTime = 180;
 		switchSetFlagI = 1;
+		humiVersion = 23;
 	}
 
 	else if ((readS2Pin2 == 1) && (readS2Pin3 == 0) && (readS2Pin4 == 1) && (readS2Pin5 == 1))		//32公斤
@@ -269,6 +277,7 @@ void dialSwitchInit() {
 		autoDrainWaterTime = 15;
 		cleanDrainWaterTime = 300;
 		switchSetFlagI = 1;
+		humiVersion = 32;
 	}
 
 	else if ((readS2Pin2 == 1) && (readS2Pin3 == 1) && (readS2Pin4 == 1) && (readS2Pin5 == 1))		//45公斤
@@ -277,6 +286,7 @@ void dialSwitchInit() {
 		autoDrainWaterTime = 15;
 		cleanDrainWaterTime = 300;
 		switchSetFlagI = 1;
+		humiVersion = 45;
 	}
 
 	else if ((readS2Pin2 == 0) && (readS2Pin3 == 1) && (readS2Pin4 == 1) && (readS2Pin5 == 1))		//65公斤
@@ -285,6 +295,7 @@ void dialSwitchInit() {
 		autoDrainWaterTime = 20;
 		cleanDrainWaterTime = 360;
 		switchSetFlagI = 1;
+		humiVersion = 65;
 	}
 	else
 	{

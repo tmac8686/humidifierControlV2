@@ -196,6 +196,8 @@ void StartDisplayTask(void const * argument)
 		case 3:
 			disPlayData(4, warningCode);
 			break;
+		case 4:
+			disPlayData(5, humiVersion*10+10000);
 		default:
 			break;
 		}

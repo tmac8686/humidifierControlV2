@@ -704,7 +704,7 @@ void keyScan() {
 	{
 		keyStatus2 = 0;
 		displayNum++;
-		if (displayNum>3)
+		if (displayNum>4)
 		{
 			displayNum = 0;
 		}

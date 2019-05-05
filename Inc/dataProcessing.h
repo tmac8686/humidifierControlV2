@@ -17,6 +17,7 @@ extern uint16_t humiCurrentUpperLimit;
 extern uint16_t extraDrainWaterTime;
 extern uint16_t autoDrainWaterTime;
 extern uint16_t cleanDrainWaterTime;
+extern uint8_t humiVersion;
 
 extern volatile uint16_t ADC_ConvertedValue[];
 extern uint32_t ADC_Average[];
