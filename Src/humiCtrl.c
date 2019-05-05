@@ -182,14 +182,14 @@ void humiCtrl() {
 				startDrainCurrent = humiCurrentUpperLimit * 300 / 1000.0 * powerProportion / 1000.0* 1.2;
 			}
 
-
+			/*
 			printf("shutOffCurrentLowerLimit = %d\n", shutOffCurrentLowerLimit);
 			printf("startInletCurrent = %d\n", startInletCurrent);
 			printf("stopInletCurrent = %d\n", stopInletCurrent);
 			printf("startDrainCurrent = %d\n", startDrainCurrent);
 			printf("humiCurrent = %d\n", humiCurrent);
 			printf("============================\n");
-
+			*/
 
 			if (humiOpening < 50)						//当比例信号低于5%是记录标志位
 			{
