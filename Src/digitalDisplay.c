@@ -304,7 +304,38 @@ static void digitalDisplayNum(uint8_t num, uint8_t data)
 		HAL_GPIO_WritePin(dig_dp_GPIO_Port, dig_dp_Pin, GPIO_PIN_RESET);
 		break;
 
+	case 'e'://e
+		HAL_GPIO_WritePin(dig_a_GPIO_Port, dig_a_Pin, 1);
+		HAL_GPIO_WritePin(dig_b_GPIO_Port, dig_b_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(dig_c_GPIO_Port, dig_c_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(dig_d_GPIO_Port, dig_d_Pin, 1);
+		HAL_GPIO_WritePin(dig_e_GPIO_Port, dig_e_Pin, 1);
+		HAL_GPIO_WritePin(dig_f_GPIO_Port, dig_f_Pin, 1);
+		HAL_GPIO_WritePin(dig_g_GPIO_Port, dig_g_Pin, 1);
+		HAL_GPIO_WritePin(dig_dp_GPIO_Port, dig_dp_Pin, GPIO_PIN_RESET);
+		break;
 
+	case 'f'://f
+		HAL_GPIO_WritePin(dig_a_GPIO_Port, dig_a_Pin, 1);
+		HAL_GPIO_WritePin(dig_b_GPIO_Port, dig_b_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(dig_c_GPIO_Port, dig_c_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(dig_d_GPIO_Port, dig_d_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(dig_e_GPIO_Port, dig_e_Pin, 1);
+		HAL_GPIO_WritePin(dig_f_GPIO_Port, dig_f_Pin, 1);
+		HAL_GPIO_WritePin(dig_g_GPIO_Port, dig_g_Pin, 1);
+		HAL_GPIO_WritePin(dig_dp_GPIO_Port, dig_dp_Pin, GPIO_PIN_RESET);
+		break;
+
+	case 'o'://o
+		HAL_GPIO_WritePin(dig_a_GPIO_Port, dig_a_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(dig_b_GPIO_Port, dig_b_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(dig_c_GPIO_Port, dig_c_Pin, 1);
+		HAL_GPIO_WritePin(dig_d_GPIO_Port, dig_d_Pin, 1);
+		HAL_GPIO_WritePin(dig_e_GPIO_Port, dig_e_Pin, 1);
+		HAL_GPIO_WritePin(dig_f_GPIO_Port, dig_f_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(dig_g_GPIO_Port, dig_g_Pin, 1);
+		HAL_GPIO_WritePin(dig_dp_GPIO_Port, dig_dp_Pin, GPIO_PIN_RESET);
+		break;
 	default:
 		break;
 	}
@@ -349,6 +380,44 @@ void disPlayData(uint8_t num, uint16_t data)
 		break;
 	case 4:
 		digitalDisplayNum(4, 'd');
+		break;
+	case 5:
+		digitalDisplayNum(4, 'e');
+		break;
+	default:
+		break;
+	}
+}
+
+/*
+num:1-4 ¶ÔÓ¦ a,b,c,d
+string ×Ö·û´®
+*/
+void disPlayString(uint8_t num, char* string)
+{
+	uint8_t bits = 3;
+	while (bits)
+	{
+		digitalDisplayNum(bits, *string);
+		string++;
+		bits--;
+	}
+	switch (num)
+	{
+	case 1:
+		digitalDisplayNum(4, 'a');
+		break;
+	case 2:
+		digitalDisplayNum(4, 'b');
+		break;
+	case 3:
+		digitalDisplayNum(4, 'c');
+		break;
+	case 4:
+		digitalDisplayNum(4, 'd');
+		break;
+	case 5:
+		digitalDisplayNum(4, 'e');
 		break;
 	default:
 		break;

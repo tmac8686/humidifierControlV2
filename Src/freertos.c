@@ -180,7 +180,15 @@ void StartDisplayTask(void const * argument)
 			disPlayData(1, humiCurrent);
 			break;
 		case 1:
-			disPlayData(2, humiOpening);
+			if (humiMode == PROPORTIONMODE)
+			{
+				disPlayData(2, humiOpening);
+			}
+			else
+			{
+				disPlayString(2, "off");
+			}
+			
 			break;
 		case 2:
 			disPlayData(3, powerProportion);

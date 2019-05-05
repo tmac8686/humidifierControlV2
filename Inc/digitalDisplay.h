@@ -5,5 +5,5 @@
 #include "main.h"
 
 void disPlayData(uint8_t num, uint16_t data);
-
+void disPlayString(uint8_t num, char* string);
 #endif // !__DIGITALDISPLAY_
