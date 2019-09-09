@@ -557,6 +557,17 @@ static void extraDrainWater() {
 	}
 }
 
+/*
+正常工作		0
+拨码错误		1
+手动排水		2
+最大水位		3
+电流超		4
+电流低		5
+需要换桶		6
+*/
+
+
 //报警灯集中处理
 void alarmLampHandle() {
 
